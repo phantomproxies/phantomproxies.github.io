@@ -1,9 +1,329 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Phantom Proxies</title>
-  </head>
-  <body>
-    <p>This is an example paragraph. Anything in the <strong>body</strong> tag will appear on the page, just like this <strong>p</strong> tag and its contents.</p>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phantom Proxies | Elite Residential & ISP</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+        :root {
+            --bg-color: #050505;
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+            --purple-glow: rgba(139, 92, 246, 0.5);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --accent: #8b5cf6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Liquid Purple Glow Effects */
+        .ambient-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.6;
+        }
+        .glow-1 {
+            top: -10%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: var(--purple-glow);
+        }
+        .glow-2 {
+            bottom: -20%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: rgba(88, 28, 135, 0.6);
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 2rem 5%;
+            align-items: center;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 8rem 5% 4rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Glassmorphism Cards */
+        .pricing-section {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 4rem 5%;
+            flex-wrap: wrap;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem;
+            width: 350px;
+            text-align: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
+            transform: skewX(-20deg);
+            transition: 0.5s;
+        }
+
+        .glass-card:hover::before {
+            left: 150%;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+        }
+
+        .card-type {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .features {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .features li {
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+        }
+
+        .features li::before {
+            content: "✓";
+            color: var(--accent);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .cta-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-btn:hover {
+            background: #7c3aed;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Interactive Calculator Slider */
+        .calculator {
+            margin-top: 1.5rem;
+            text-align: left;
+        }
+        
+        .calculator input[type="range"] {
+            width: 100%;
+            margin: 10px 0;
+            accent-color: var(--accent);
+        }
+
+        .calc-result {
+            font-weight: 600;
+            color: var(--text-main);
+            margin-top: 5px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--glass-border);
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } /* Add hamburger menu in real dev */
+            .glass-card { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <nav>
+        <div class="logo">Phantom Proxies</div>
+        <div class="nav-links">
+            <a href="#residential">Residential</a>
+            <a href="#isp">ISPs</a>
+            <a href="#dashboard">Dashboard</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Stay Undetected.<br>Dominate the Drop.</h1>
+        <p>Premium proxy infrastructure engineered for high-speed web scraping, sneaker botting, and automated checkout systems. Zero blocks, zero bans.</p>
+    </header>
+
+    <section class="pricing-section">
+        <div class="glass-card" id="residential">
+            <div class="card-type">Filtered Residential</div>
+            <div class="price">$4<span> / GB</span></div>
+            
+            <div class="calculator">
+                <label for="res-slider" style="color: var(--text-muted); font-size: 0.9rem;">Estimate your usage:</label>
+                <input type="range" id="res-slider" min="1" max="100" value="10" oninput="updateResPrice()">
+                <div class="calc-result"><span id="res-gb">10</span> GB = $<span id="res-total">40</span>/mo</div>
+            </div>
+
+            <ul class="features">
+                <li>Ethically sourced IPs</li>
+                <li>Rotating & Sticky sessions</li>
+                <li>Optimized for retail & sneakers</li>
+                <li>API Access Included</li>
+            </ul>
+            <button class="cta-btn">Purchase GB</button>
+        </div>
+
+        <div class="glass-card" id="isp">
+            <div class="card-type">Premium ISPs</div>
+            <div class="price">$2<span> / ISP / mo</span></div>
+            
+            <div class="calculator">
+                <label for="isp-slider" style="color: var(--text-muted); font-size: 0.9rem;">Select quantity:</label>
+                <input type="range" id="isp-slider" min="10" max="500" value="25" step="5" oninput="updateIspPrice()">
+                <div class="calc-result"><span id="isp-count">25</span> ISPs = $<span id="isp-total">50</span>/mo</div>
+            </div>
+
+            <ul class="features">
+                <li>10Gbps Network Speeds</li>
+                <li>Unmetered Bandwidth</li>
+                <li>Clean ASNs for scraping</li>
+                <li>24/7 Uptime Guarantee</li>
+            </ul>
+            <button class="cta-btn">Buy ISPs</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Phantom Proxies. Built for the Underground.</p>
+    </footer>
+
+    <script>
+        function updateResPrice() {
+            const gb = document.getElementById('res-slider').value;
+            const pricePerGb = 4;
+            document.getElementById('res-gb').innerText = gb;
+            document.getElementById('res-total').innerText = gb * pricePerGb;
+        }
+
+        function updateIspPrice() {
+            const isps = document.getElementById('isp-slider').value;
+            const pricePerIsp = 2;
+            document.getElementById('isp-count').innerText = isps;
+            document.getElementById('isp-total').innerText = isps * pricePerIsp;
+        }
+    </script>
+</body>
 </html>
